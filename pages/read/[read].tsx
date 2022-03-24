@@ -4,33 +4,57 @@ import styles from '../../styles/Home.module.css'
 import { client } from '../index'
 import * as contentful from 'contentful'
 
-function Read({ items }) {
+function Read({ otherQrCodes, comments }) {
+
+    console.log(otherQrCodes, comments)
 
     return (
         <div className={styles.readContainer}>
-            <div className={styles.readImageContainer}>
-                <img src="../images/park.png" className={styles.readBackImage}/>
-                <div className={styles.readImageHeart}>
 
+            <div className={styles.readHeader}>
+                <span className={styles.header1}>Noorderpark</span>
+                <span className={styles.header2}>De leukste-plekje-van-het-park</span>
+                <span className={styles.header3}>verkiezing 2022</span>
+            </div>
+
+            <div className={styles.readImageContainer}>
+             
+                <img src="../images/park.png" className={styles.readBackImage}/>
+             
+                <div className={styles.readImageHeart}>
                     <img src="../images/heart.png"/ >
                 </div>
             </div>
             <h1 className={styles.readTitle}>{}</h1>
             <p style={{ fontSize: '14px' }}>Dit is de tussenstand:</p>
-            {/* <p>{qrCodeData.qrCodeData.content}</p> */}
-
-            {/* {renderCards()} */}
-
-            {items.map((item: any, index: number) => {
+            {otherQrCodes.map((item: any, index: number) => {
                 return (
-                    <div key={index} style={index === 0 && items.length > 1 ? { borderTop: '2px solid black' } : undefined}>
+                    <div key={index} style={index === 0 && otherQrCodes.length > 1 ? { borderTop: '1px solid black' } : undefined}>
                         {renderCard(index + 1, item.fields?.title, item.fields?.votes)}
                     </div>
                 )
             })}
-
+            <div className={styles.commentSection}>
+                <div className={styles.commentHeader}>
+                    <span>{comments.length + ' reacties'}</span>
+                    <button>Reageer</button>
+                </div>
+                {renderComments()}
+            </div>
         </div>
     )
+
+    function renderComments() {
+        return comments.map((comment: any, index: number) => {
+            comment = comment.fields
+            return (
+                <div className={styles.comment} key={index} style={{ marginTop: '10px' }}>
+                    <h3>{comment.author}</h3>
+                    <p>{comment.description}</p>
+                </div>
+            )
+        })
+    }
 
 
     function renderCard(number: number, title: string, votes: number) {
@@ -66,7 +90,15 @@ export async function getServerSideProps({ params }) {
     });
 
     // const doQrCodesCall = async () => {
-    const items = await client.getEntries()
+    const qrCodes = await client.getEntries({
+        content_type: 'qrcode'
+    })
+
+    const comments = await client.getEntries({
+        content_type: 'comment'
+    })
+
+    // console.log(qrCodes, comments)
 
         // const items = entries.items
         // console.log(items)
@@ -74,5 +106,5 @@ export async function getServerSideProps({ params }) {
 
     // doQrCodesCall()
 
-    return { props: { items: items.items } }
+    return { props: { otherQrCodes: qrCodes.items, comments: comments.items } }
 }
