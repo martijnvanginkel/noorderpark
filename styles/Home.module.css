@@ -5,6 +5,32 @@
   height: 100vh;
 }
 
+.voteBar {
+  height: 15px;
+  width: 100%;
+  background-color: #D2D4D7;
+  border-radius: 30px;
+  margin-top: 5px;
+}
+
+.innerBar {
+  background-color: black;
+  height: 100%;
+  /* width: 50%; */
+  border-radius: 30px;
+  /* animation: innerBarAnim 2s; */
+}
+/* 
+@keyframes innerBarAnim {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+} */
+
+
 .readHeader {
   display: flex;
   flex-direction: column;
@@ -41,8 +67,8 @@
   margin: 0 auto;
   /* overflow: hidden; */
   /* max-height: 300px; */
-  overflow:hidden;
-
+  /* overflow:hidden; */
+  margin-bottom: 50px;
 }
 
 .readImageContainer {
@@ -103,13 +129,23 @@
   font-size: 1.25em;
 }
 
+.readDescription {
+  font-size: 0.8em;
+  font-weight: lighter;
+  margin: 0;
+  margin-bottom: 20px;
+  padding: 0;
+}
+
 .readCard {
   /* background-color: pink; */
   display: flex;
   margin-bottom: 10px;
-  padding: 5px 0;
+  padding: 15px 0;
   border-bottom: 1px solid black;
   animation: fadeInOpacity 1.5s;
+  /* margin: 5px 0; */
+  /* padding: */
 }
 
 @keyframes fadeInOpacity {
@@ -140,20 +176,26 @@
   flex-basis: 25%;
   max-width: 20%;
   border-radius: 8px;
-  margin: 5px;
+  /* margin: 5px; */
 }
 
 .cardVote {
   flex-basis: 50%;
-  padding-left: 10px;
+  padding-left: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
 .cardVote > h2 {
+  margin: 0;
+  padding: 0;
   font-size: 1em;
 }
 
-.cardVote > span {
+.cardVote > div > span {
   font-size: 0.8em;
+  font-weight: lighter;
 }
 
 .star {
@@ -166,6 +208,7 @@
 .commentSection {
   /* overflow: scroll; */
   animation: fadeInOpacity 2s;
+  padding-bottom: 50px;
   /* width: 100%; */
   /* background-color: red; */
 }

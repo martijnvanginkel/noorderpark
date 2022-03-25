@@ -6,7 +6,10 @@ import * as contentful from 'contentful'
 
 function Read({ otherQrCodes, comments }) {
 
-    console.log(otherQrCodes, comments)
+    const myQr = otherQrCodes[0]
+
+    // const myQr = otherQrCodes.find(qrCode => qrCode.)
+    
 
     return (
         <div className={styles.readContainer}>
@@ -25,7 +28,10 @@ function Read({ otherQrCodes, comments }) {
                     <img src="../images/heart.png"/ >
                 </div>
             </div>
-            <h1 className={styles.readTitle}>{}</h1>
+            <h1 className={styles.readTitle}>{myQr.fields.title}</h1>
+            <p className={styles.readDescription}>
+                {myQr.fields.content}
+            </p>
             <p style={{ fontSize: '14px' }}>Dit is de tussenstand:</p>
             {otherQrCodes.map((item: any, index: number) => {
                 return (
@@ -69,7 +75,16 @@ function Read({ otherQrCodes, comments }) {
                     <h2>
                         {title}
                     </h2>
-                    <span>{votes} stemmen</span>
+                    <div>
+                        <span>{votes} stemmen</span>
+                        <div className={styles.voteBar}>
+                            <div className={styles.innerBar} style={{
+                                width: ((votes / 10) * 100).toString() + '%',
+                            }}>
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         )
